@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <link
+      rel="stylesheet"
+      media="screen and (min-width: 375px)"
+      href="./style_375px.css"
+    />
+
+    <link
+      rel="stylesheet"
+      media="screen and (min-width: 1440px)"
+      href="./style_1440px.css"
+    />
+
+    <title>Frontend Mentor | E-commerce product page</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      @font-face {
+        font-family: Kumbh-Sans-Black;
+        src: url("./fonts/Kumbh_Sans/static/KumbhSans-Black.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: Kumbh-Sans-Bold;
+        src: url("./fonts/Kumbh_Sans/static/KumbhSans-Bold.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: Kumbh-Sans-ExtraBold;
+        src: url("./fonts/Kumbh_Sans/static/KumbhSans-ExtraBold.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: Kumbh-Sans-ExtraLight;
+        src: url("./fonts/Kumbh_Sans/static/KumbhSans-ExtraLight.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: Kumbh-Sans-Light;
+        src: url("./fonts/Kumbh_Sans/static/KumbhSans-Light.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: Kumbh-Sans-Medium;
+        src: url("./fonts/Kumbh_Sans/static/KumbhSans-Medium.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: Kumbh-Sans-Regular;
+        src: url("./fonts/Kumbh_Sans/static/KumbhSans-Regular.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: Kumbh-Sans-SemiBold;
+        src: url("./fonts/Kumbh_Sans/static/KumbhSans-SemiBold.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: Kumbh-Sans-Thin;
+        src: url("./fonts/Kumbh_Sans/static/KumbhSans-Thin.ttf")
+          format("truetype");
+      }
+    </style>
+
+    <script>
+      let qty;
+      let price = 250;
+      let discount = 0.5;
+      let discounted = price * discount;
+      let itemName = "Fall Limited Edition Sneakers";
+      let textContent =
+        "These low-profile sneakers are your perfect casual wear companion.Featuring a durable rubber outer sole,they'll withstand everything the weather can offer.";
+      let imgSource = "./images/image-product-1-thumbnail.jpg";
+      let imgSourceArray = [
+        "./images/image-product-1.jpg",
+        "./images/image-product-2.jpg",
+        "./images/image-product-3.jpg",
+        "./images/image-product-4.jpg",
+      ];
+      let imgThumbnailArray = [
+        "./images/image-product-1-thumbnail.jpg",
+        "./images/image-product-2-thumbnail.jpg",
+        "./images/image-product-3-thumbnail.jpg",
+        "./images/image-product-4-thumbnail.jpg",
+      ];
+      let imgCounter = 0;
+      let pos = 0;
+      let windowWidth;
+      function sizechange() {
+        windowWidth = window.innerWidth;
+        if (windowWidth >= 1440) {
+          document.getElementById("sideNavbar").style.display = "block";
+        } else {
+          document.getElementById("sideNavbar").style.display = "none";
+          document.getElementById("iconClose").style.display = "none";
+          document.getElementById("imgLightBox").style.display = "none";
+          document.getElementById("divDarkLayer").style.display = "none";
+          document.getElementById("imgThumbnailLB1").style.display = "none";
+          document.getElementById("imgThumbnailLB2").style.display = "none";
+          document.getElementById("imgThumbnailLB3").style.display = "none";
+          document.getElementById("imgThumbnailLB4").style.display = "none";
+          document.getElementById("divImgNavPrevLB").style.display = "none";
+          document.getElementById("divImgNavNextLB").style.display = "none";
+        }
+      }
+      function load() {
+        document.getElementById("sideNavbar").style.display = "none";
+        document.getElementById("divDetailCart").style.display = "none";
+        document.getElementById("divNoEmptyCart").style.display = "none";
+
+        sizechange();
+
+        document.getElementById("imgThumbnail1").src = imgThumbnailArray[0];
+        document.getElementById("imgThumbnail2").src = imgThumbnailArray[1];
+        document.getElementById("imgThumbnail3").src = imgThumbnailArray[2];
+        document.getElementById("imgThumbnail4").src = imgThumbnailArray[3];
+
+        document.getElementById("imgThumbnailLB1").src = imgThumbnailArray[0];
+        document.getElementById("imgThumbnailLB2").src = imgThumbnailArray[1];
+        document.getElementById("imgThumbnailLB3").src = imgThumbnailArray[2];
+        document.getElementById("imgThumbnailLB4").src = imgThumbnailArray[3];
+
+        document.getElementById("textContentDetail").innerText = textContent;
+        document.getElementById("textContentTitle").innerText = itemName;
+        document.getElementById("imgBigMainContent").src = imgSourceArray[0];
+
+        document.getElementById(
+          "labelPriceDiscount"
+        ).innerText = `$${discounted.toFixed(2)}`;
+        document.getElementById("labelDiscount").innerText = `${
+          discount * 100
+        }%`;
+        document.getElementById(
+          "labelPriceOrigin"
+        ).innerText = `$${price.toFixed(2)}`;
+
+        document.getElementById("imgTotalCart").src = imgSource;
+      }
+      function showSideNavbar() {
+        document.getElementById("sideNavbar").style.display = "block";
+        document.getElementById("divDarkLayer").style.display = "block";
+      }
+      function hideSideNavbar() {
+        document.getElementById("sideNavbar").style.display = "none";
+        document.getElementById("divDarkLayer").style.display = "none";
+      }
+      function decQty() {
+        qty = parseInt(document.getElementById("labelQty").innerText);
+        if (qty > 0) {
+          qty -= 1;
+          document.getElementById("labelQty").innerText = String(qty);
+        }
+      }
+      function incQty() {
+        qty = parseInt(document.getElementById("labelQty").innerText);
+        qty += 1;
+        document.getElementById("labelQty").innerText = String(qty);
+      }
+      function addCart() {
+        document.getElementById("divDetailCart").style.display = "block";
+        qty = parseInt(document.getElementById("labelQty").innerText);
+        if (qty > 0) {
+          let totalCart = discounted * qty;
+          document.getElementById("qtyCart").innerText = String(qty);
+          document.getElementById("qtyCart").style.display = "block";
+          document.getElementById("textEmptyCart").style.display = "none";
+          document.getElementById("divNoEmptyCart").style.display = "block";
+          document.getElementById("divDetailCart").style.display = "block";
+          document.getElementById(
+            "textTotalCart"
+          ).innerText = `${itemName} $${discounted.toFixed(2)} x ${qty}`;
+          const span = document.createElement("span");
+          span.innerText = ` $${totalCart.toFixed(2)}`;
+          span.style.color = "black";
+          span.style.fontFamily = "Kumbh-Sans-Bold";
+          span.style.fontSize = "15px";
+          document.getElementById("textTotalCart").appendChild(span);
+        } else {
+          document.getElementById("qtyCart").style.display = "none";
+          document.getElementById("textEmptyCart").style.display = "block";
+          document.getElementById("divNoEmptyCart").style.display = "none";
+          document.getElementById("divDetailCart").style.display = "block";
+        }
+      }
+      function deleteCart() {
+        qty = 0;
+        document.getElementById("labelQty").innerText = String(qty);
+        document.getElementById("qtyCart").style.display = "none";
+        document.getElementById("divDetailCart").style.display = "none";
+      }
+
+      function prevImage() {
+        if (imgCounter <= 0) imgCounter = 0;
+        else {
+          imgCounter -= 1;
+        }
+        document.getElementById("imgBigMainContent").src =
+          imgSourceArray[imgCounter];
+      }
+      function nextImage() {
+        if (imgCounter >= 3) imgCounter = 3;
+        else {
+          imgCounter += 1;
+        }
+        document.getElementById("imgBigMainContent").src =
+          imgSourceArray[imgCounter];
+      }
+
+      function enterPrevImageLB() {
+        document.getElementById("imgPrevLB").src =
+          "./images/icon-previous-orange.svg";
+      }
+      function enterNextImageLB() {
+        document.getElementById("imgNextLB").src =
+          "./images/icon-next-orange.svg";
+      }
+      function leavePrevImageLB() {
+        document.getElementById("imgPrevLB").src = "./images/icon-previous.svg";
+      }
+      function leaveNextImageLB() {
+        document.getElementById("imgNextLB").src = "./images/icon-next.svg";
+      }
+      function enterIconClose() {
+        document.getElementById("iconClose").src =
+          "./images/icon-close1440.svg";
+      }
+      function leaveIconClose() {
+        document.getElementById("iconClose").src = "./images/icon-close.svg";
+      }
+      function prevImageLB() {
+        if (pos <= 0) pos = 0;
+        else {
+          pos -= 1;
+        }
+        document.getElementById("imgLightBox").src = imgSourceArray[pos];
+        document.getElementById("imgBigMainContent").src = imgSourceArray[pos];
+      }
+      function nextImageLB() {
+        if (pos >= 3) pos = 3;
+        else {
+          pos += 1;
+        }
+        document.getElementById("imgLightBox").src = imgSourceArray[pos];
+        document.getElementById("imgBigMainContent").src = imgSourceArray[pos];
+        document.getElementById("imgNextLB").src = "./images/icon-next.svg";
+      }
+
+      function clickThumbnailLB(id) {
+        for (let k = 1; k < 5; k++) {
+          if (id == `imgThumbnailLB${k}`) {
+            document.getElementById("imgBigMainContent").src =
+              imgSourceArray[k - 1];
+            document.getElementById("imgLightBox").src = imgSourceArray[k - 1];
+            pos = k - 1;
+          }
+        }
+      }
+      function showLightBox(id) {
+        for (let k = 1; k < 5; k++) {
+          if (id == `imgThumbnail${k}`) {
+            document.getElementById("imgBigMainContent").src =
+              imgSourceArray[k - 1];
+            document.getElementById("imgLightBox").src = imgSourceArray[k - 1];
+          }
+        }
+        document.getElementById("imgLightBox").style.display = "block";
+        document.getElementById("iconClose").style.display = "block";
+        document.getElementById("divDarkLayer").style.display = "block";
+        document.getElementById("imgThumbnailLB1").style.display = "block";
+        document.getElementById("imgThumbnailLB2").style.display = "block";
+        document.getElementById("imgThumbnailLB3").style.display = "block";
+        document.getElementById("imgThumbnailLB4").style.display = "block";
+        document.getElementById("divImgNavPrevLB").style.display = "block";
+        document.getElementById("divImgNavNextLB").style.display = "block";
+      }
+      function hideLightBox() {
+        document.getElementById("imgLightBox").style.display = "none";
+        document.getElementById("iconClose").style.display = "none";
+        document.getElementById("divDarkLayer").style.display = "none";
+        document.getElementById("imgThumbnailLB1").style.display = "none";
+        document.getElementById("imgThumbnailLB2").style.display = "none";
+        document.getElementById("imgThumbnailLB3").style.display = "none";
+        document.getElementById("imgThumbnailLB4").style.display = "none";
+        document.getElementById("divImgNavPrevLB").style.display = "none";
+        document.getElementById("divImgNavNextLB").style.display = "none";
+      }
+    </script>
+  </head>
+  <body onload="load()" onresize="sizechange()">
+    <div class="div-main">
+      <div id="sideNavbar" class="sidenavbar">
+        <div class="div-icon-close">
+          <img
+            src="./images/icon-close.svg"
+            class="icon-close"
+            onclick="hideSideNavbar()"
+          />
+        </div>
+        <div class="div-inside-sidenav">
+          <a class="link-in-navbar" href="#">Collections</a><br />
+          <a class="link-in-navbar" href="#">Men</a><br />
+          <a class="link-in-navbar" href="#">Women</a><br />
+          <a class="link-in-navbar" href="#">About</a><br />
+          <a class="link-in-navbar" href="#">Contact</a><br />
+        </div>
+      </div>
+      <div id="divDarkLayer" class="div-dark-layer"></div>
+      <img
+        id="iconClose"
+        src="./images/icon-close.svg"
+        class="icon-close-1440"
+        onclick="hideLightBox()"
+        onmouseenter="enterIconClose()"
+        onmouseleave="leaveIconClose()"
+      />
+      <img
+        id="imgLightBox"
+        class="img-light-box"
+        src="./images/image-product-1.jpg"
+      />
+       
+      <img
+        id="imgThumbnailLB1"
+        class="img-thumbnail-lightbox"
+        style="left: 490px"
+        onclick="clickThumbnailLB(this.id)"
+      />
+      <img
+        id="imgThumbnailLB2"
+        class="img-thumbnail-lightbox"
+        style="left: 620px"
+        onclick="clickThumbnailLB(this.id)"
+      />
+      <img
+        id="imgThumbnailLB3"
+        class="img-thumbnail-lightbox"
+        style="left: 750px"
+        onclick="clickThumbnailLB(this.id)"
+      />
+      <img
+        id="imgThumbnailLB4"
+        class="img-thumbnail-lightbox"
+        style="left: 880px"
+        onclick="clickThumbnailLB(this.id)"
+      />
+
+      <div
+        id="divImgNavPrevLB"
+        class="div-img-nav-lightbox prevlb"
+        onclick="prevImageLB()"
+        onmouseenter="enterPrevImageLB()"
+        onmouseleave="leavePrevImageLB()"
+      >
+        <img
+          id="imgPrevLB"
+          class="img-nav-lightbox"
+          src="./images/icon-previous.svg"
+        />
+      </div>
+      <div
+        id="divImgNavNextLB"
+        class="div-img-nav-lightbox nextlb"
+        onclick="nextImageLB()"
+        onmouseenter="enterNextImageLB()"
+        onmouseleave="leaveNextImageLB()"
+      >
+        <img
+          id="imgNextLB"
+          class="img-nav-lightbox"
+          src="./images/icon-next.svg"
+        />
+      </div>
+      <div id="divDetailCart" class="div-detail-cart">
+        <h3 class="text-cart-inside-detailcart">Cart</h3>
+        <hr />
+        <p id="textEmptyCart" class="text-empty-cart">Your cart is empty.</p>
+        <div id="divNoEmptyCart" class="div-no-empty-cart">
+          <div class="div-total-cart">
+            <img id="imgTotalCart" class="img-total-cart" />
+            <p id="textTotalCart" class="text-total-cart"></p>
+
+            <img
+              class="icon-delete"
+              src="./images/icon-delete.svg"
+              onclick="deleteCart()"
+            />
+          </div>
+          <button class="div-checkout-button">Checkout</button>
+        </div>
+      </div>
+      <div id="divNavbarTop" class="div-navbar-top">
+        <img
+          class="img-menu"
+          src="./images/icon-menu.svg"
+          onclick="showSideNavbar()"
+        />
+        <img class="img-logo" src="./images/logo.svg" />
+        <img class="img-cart" src="./images/icon-cart.svg" />
+        <div id="qtyCart" class="qty-cart">0</div>
+        <img class="img-avatar" src="./images/image-avatar.png" />
+      </div>
+      <div class="div-image-hscroll">
+        <img
+          id="imgBigMainContent"
+          class="img-big-maincontent"
+          src="./images/image-product-1.jpg"
+        />
+        <div class="div-img-nav prev" onclick="prevImage()">
+          <img class="img-nav" src="./images/icon-previous.svg" />
+        </div>
+        <div class="div-img-nav next" onclick="nextImage()">
+          <img class="img-nav" src="./images/icon-next.svg" />
+        </div>
+      </div>
+
+      <img
+        id="imgThumbnail1"
+        class="img-thumbnail"
+        style="left: 215px"
+        onclick="showLightBox(this.id)"
+      />
+      <img
+        id="imgThumbnail2"
+        class="img-thumbnail"
+        style="left: 335px"
+        onclick="showLightBox(this.id)"
+      />
+      <img
+        id="imgThumbnail3"
+        class="img-thumbnail"
+        style="left: 455px"
+        onclick="showLightBox(this.id)"
+      />
+      <img
+        id="imgThumbnail4"
+        class="img-thumbnail"
+        style="left: 575px"
+        onclick="showLightBox(this.id)"
+      />
+
+      <div class="div-content">
+        <label class="text-title">SNEAKER COMPANY</label>
+        <p id="textContentTitle" class="text-content-title"></p>
+        <p id="textContentDetail" class="text-content-detail"></p>
+      </div>
+
+      <div class="div-content-price">
+        <label id="labelPriceDiscount" class="label-price-discount"></label>
+        <div class="div-label-discount">
+          <label id="labelDiscount" class="label-discount"></label>
+        </div>
+        <label id="labelPriceOrigin" class="label-price-origin"></label>
+      </div>
+      <div class="div-content-qty">
+        <img
+          class="icon-minus"
+          src="./images/icon-minus.svg"
+          onclick="decQty()"
+        />
+        <label id="labelQty" class="label-qty">0</label>
+        <img
+          class="icon-plus"
+          src="./images/icon-plus.svg"
+          onclick="incQty()"
+        />
+      </div>
+      <div class="div-button-cart" onclick="addCart()">
+        <img class="img-cart-in-button" src="./images/icon-cart-white.svg" />
+        <label class="label-add-cart">Add to cart</label>
+      </div>
+    </div>
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">ZHB</a>.
+    </div>
+  </body>
+</html>
